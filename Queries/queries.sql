@@ -84,6 +84,7 @@ FROM departments de
 INNER JOIN dept_manager dm
 ON de.dept_no = dm.dept_no;
 
+-- Creates list of current employees about to retire
 SELECT ri.emp_no,
     ri.first_name,
     ri.last_name,
@@ -141,3 +142,64 @@ FROM dept_manager AS dm
         ON (dm.dept_no = d.dept_no)
     INNER JOIN current_emp AS ce
         ON (dm.emp_no = ce.emp_no);
+		
+-- Creates dept_info
+SELECT ce.emp_no,
+	ce.first_name,
+	ce.last_name,
+	d.dept_name
+INTO dept_info
+FROM current_emp as ce
+INNER JOIN dept_emp AS de
+ON (ce.emp_no = de.emp_no)
+INNER JOIN departments AS d
+ON (de.dept_no = d.dept_no);
+
+
+-- Skill Drill 1
+-- Sales department only
+-- Employee numbers, Employee first name, Employee last name, Employee department name
+-- returns 5860 records, there are duplicates in this file
+SELECT count(*)
+FROM dept_info
+WHERE dept_name = 'Sales';
+
+SELECT * FROM dept_info;
+-- Skill Drill 1 Using Retiement_info table
+-- returns 5252 with DATE restriction the correct value
+-- returns 7301
+SELECT ri.emp_no,
+	ri.first_name,
+	ri.last_name,
+	d.dept_name
+INTO sales_mentors
+FROM retirement_info ri
+JOIN dept_emp de
+ON ri.emp_no = de.emp_no
+JOIN departments d
+ON de.dept_no = d.dept_no
+WHERE d.dept_name = 'Sales'
+AND de.to_date = '9999-01-01';
+
+-- Skill Drill 2
+-- Sales and development
+-- Employee numbers, Employee first name, Employee last name, Employee department name
+-- Returns 15141, there are duplicates in this file
+SELECT count(*)
+FROM dept_info
+WHERE dept_name IN ('Sales','Development')
+--ORDER BY dept_name ASC; 
+
+--Returns 13613 the correct value
+SELECT ri.emp_no,
+	ri.first_name,
+	ri.last_name,
+	d.dept_name
+INTO sales_dev_mentors
+FROM retirement_info ri
+JOIN dept_emp de
+ON ri.emp_no = de.emp_no
+JOIN departments d
+ON de.dept_no = d.dept_no
+WHERE d.dept_name IN ('Sales','Development')
+AND de.to_date = '9999-01-01';
