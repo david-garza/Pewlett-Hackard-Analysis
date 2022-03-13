@@ -80,3 +80,29 @@ SELECT * FROM retirement_titles LIMIT 10
 SELECT * FROM unique_titles LIMIT 10
 SELECT * FROM retiring_titles LIMIT 10
 SELECT * FROM mentorship_eligibilty LIMIT 10
+
+-- Number of retirements by department
+SELECT COUNT(e.emp_no) AS "Number Retiring",
+	dept.dept_name AS "Department"
+FROM employees e
+JOIN dept_emp d
+ON e.emp_no=d.emp_no
+JOIN departments dept
+ON d.dept_no=dept.dept_no
+WHERE e.birth_date BETWEEN '1952-01-01' AND '1955-12-31'
+AND d.to_date = '9999-01-01'
+GROUP BY dept.dept_name
+ORDER BY "Number Retiring" DESC
+
+-- Number of mentors by department
+SELECT COUNT(e.emp_no) AS "Number Mentors",
+	dept.dept_name AS "Department"
+FROM employees e
+JOIN dept_emp d
+ON e.emp_no=d.emp_no
+JOIN departments dept
+ON d.dept_no=dept.dept_no
+WHERE e.birth_date BETWEEN '1965-01-01' AND '1965-12-31'
+AND d.to_date = '9999-01-01'
+GROUP BY dept.dept_name
+ORDER BY "Number Mentors" DESC
