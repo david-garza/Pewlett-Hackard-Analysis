@@ -1,4 +1,4 @@
-# Pewlett-Hackard-Analysis
+# Pewlett Hackard Analysis
 ## Overview of the analysis
 As Baby Boomers near retirement, a tsunami of retirements, could place Pewlett Hackard in a precarious situation where talent and corporate knowledge could be lost forever. Therefore, a proactive analysis to determine the size and scope of the upcoming retirement wave is performed here.
 
